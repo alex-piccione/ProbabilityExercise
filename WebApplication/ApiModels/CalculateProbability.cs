@@ -14,7 +14,9 @@ namespace Probability.Web.ApiModels
 
 
     public class CalculateProbabilityApiResponse
-    {        
+    {
+        public bool IsSuccess { get; set; }
+        public string[] Errors { get; set; }
         public decimal Probability { get; set; }
     }
 }

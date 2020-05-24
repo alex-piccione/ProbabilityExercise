@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
-import { BaseProvider } from "./BaseProvider"
 import { Observable} from "rxjs"
 import { map, catchError } from 'rxjs/operators'
+import { BaseProvider } from "./BaseProvider"
+import { ProbabilityResult } from "../models/probabilityResult"
 
 @Injectable()
 export class ProbabilityProvider extends BaseProvider {
@@ -11,23 +12,26 @@ export class ProbabilityProvider extends BaseProvider {
         super()
     }
 
-    public calculateProbability(probabilityOfA: number, probabilityOfB: number): Observable<number> {
+    public calculateProbability(probabilityOfA: number, probabilityOfB: number): Observable<ProbabilityResult> {
 
         const url = `${this.apiUrl}/probability?pA=${probabilityOfA}&pB=${probabilityOfB}`
 
         return this.http.get(url).pipe(
             map(result => this.parseProbability(result)),
-            catchError(error => super.handleError<number>(error))
-        )
+            catchError(error => super.handleError<ProbabilityResult>(error)                
+        ))
     }
 
 
-    private parseProbability(res: Object): number {
+    private parseProbability(res: Object): ProbabilityResult {
         try {
-            return parseFloat(res["probability"])
+            var isSuccess = res["isSuccess"]
+            return isSuccess ?
+                ProbabilityResult.Ok(parseFloat(res["probability"])) :
+                ProbabilityResult.Error(res["errors"])
         }
         catch {
-            throw "Failed to read the probability value from JSON response."
+            throw "Failed to parce the probability request result from JSON response."
         }
     }
 

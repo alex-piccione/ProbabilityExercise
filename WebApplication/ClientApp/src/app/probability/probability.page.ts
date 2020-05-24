@@ -26,7 +26,10 @@ export class ProbabilityPage {
 
         this.probabilityProvider.calculateProbability(this.pA, this.pB).subscribe(
             result => {
-                this.probabilityResult = result
+                if (result.isSuccess)
+                    this.probabilityResult = result.probability
+                else
+                    this.error = result.errors.join(", ")
             },
             error => {
                 this.error = error

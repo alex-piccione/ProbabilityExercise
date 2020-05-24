@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Probability.Core;
+using Probability.Core.Exceptions;
 using Probability.Core.Models;
 using Probability.Web.ApiModels;
 
@@ -30,12 +31,21 @@ namespace Probability.Web.ApiControllers
             {
                 var result = probabilityCalculator.CalculateProbability(calculationRequest);
 
-                var response = new CalculateProbabilityApiResponse
+                return Ok(new CalculateProbabilityApiResponse
                 {
+                    IsSuccess = true,
                     Probability = result
-                };
-
-                return Ok(response);
+                });
+            }
+            catch (InvalidCalculateProbabilityRequest exc)
+            {
+                // log WARN exc 
+                //return BadRequest(new { errors=exc.Errors });
+                return Ok(new CalculateProbabilityApiResponse
+                {
+                    IsSuccess = false,
+                    Errors = exc.Errors
+                });
             }
             catch (Exception exc)
             {
