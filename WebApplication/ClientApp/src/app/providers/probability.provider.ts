@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core"
-import { HttpClient } from "@angular/common/http"
+import { Injectable, ErrorHandler } from "@angular/core"
+import { HttpClient, HttpErrorResponse } from "@angular/common/http"
 import { BaseProvider } from "./BaseProvider"
 import { Observable, throwError} from "rxjs"
 import { map, catchError } from 'rxjs/operators'
@@ -21,7 +21,8 @@ export class ProbabilityProvider extends BaseProvider {
 
         return this.http.get(url).pipe(
             map(result => this.parseProbability(result)),
-            catchError(error => throwError(error))
+            //catchError(error => throwError(error))
+            catchError(error => super.handleError<number>(error))
         )
 
         //http$
@@ -41,7 +42,7 @@ export class ProbabilityProvider extends BaseProvider {
             return parseFloat(res["probability"])
         }
         catch {
-            throw "Failed to read the probability value"
+            throw "Failed to read the probability value from JSON response."
         }
     }
 
