@@ -1,0 +1,14 @@
+.row {
+    margin-bottom:2em;
+}
+
+.range-value {
+    color: #666;
+    vertical-align: top;
+}
+
+
+.result {
+    font-size:150%;
+    color: blue;
+}

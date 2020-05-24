@@ -1,2 +1,36 @@
 <h1>Probability</h1>
 
+<p>Calculate the reulting probabilty given the probability of A and B, and the kind of calculation.</p>
+
+<div class="container">
+
+    <div *ngIf="error!=''" class="alert alert-danger">{{error}}</div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Probability of A</label>
+            <br />
+            <input type="range" min="0" max="1" step="0.01" [(ngModel)]="pA" class="slider-handle min-slider-handle round" />
+            <span class="range-value"> {{pA}}</span>
+        </div>
+        <div class="col-md-6">
+            <label>Probability of B</label>
+            <br />
+            <input type="range" min="0" max="1" step="0.01" [(ngModel)]="pB" class="" />
+            <span class="range-value"> {{pB}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="center">
+            <button class="btn btn-primary" (click)="calculateProbability()">Calculate</button>
+        </div>
+    </div>
+    <div *ngIf="probabilityResult != undefined">
+        <div class="center">
+            Calculated probability: <br />
+        </div>
+        <div class="center">
+            <span class="result">{{probabilityResult}}</span>
+        </div>
+    </div>
+</div>

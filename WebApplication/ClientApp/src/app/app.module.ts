@@ -9,6 +9,10 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component'
 import { HomeComponent } from './home/home.component'
 import { ProbabilityPage } from "./probability/probability.page"
 
+// providers
+import { BaseProvider } from "./providers/BaseProvider"
+import { ProbabilityProvider } from "./providers/probability.provider"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +30,9 @@ import { ProbabilityPage } from "./probability/probability.page"
       { path: '**', redirectTo: '' }
     ])
   ],
-  providers: [],
+    providers: [
+        ProbabilityProvider
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
