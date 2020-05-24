@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Probability.Core;
+using Probability.Core.Calculators;
+
 namespace WebApplication
 {
     public class Startup
@@ -26,6 +29,9 @@ namespace WebApplication
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSingleton<IProbabilityCalculator, ProbabilityCalculator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

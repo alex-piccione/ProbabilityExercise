@@ -3,19 +3,15 @@ import { HttpErrorResponse } from "@angular/common/http"
 
 export class BaseProvider {
 
-  protected apiUrl = `${location.protocol}//${location.host}/api`
+    protected apiUrl = `${location.protocol}//${location.host}/api`
 
-  //protected handleError<T>(error: any): Observable<T> {
 
     protected handleError<T>(error: any): Observable<T> {
 
         if (error as HttpErrorResponse)
-            if (error.status == 500)
-                return throwError(error.error.title || "500 error")
-            else 
-                return throwError(error.error.title || "Eror " + error.status + ": " + String(error))
+            return throwError(error.error.title||`${error.status} error` + " " + error.error.detail||"")
 
-        return throwError("Undefined error")
+        return throwError("Undefined error: " + String(error))
     }
 
 }
