@@ -10,6 +10,9 @@ export class ProbabilityPage {
 
     public pA: number
     public pB: number
+    public pType:string
+    public calculationTypes = ["CombinedWith", "Either", "SumDouble"]
+
     public error: string=""
     public probabilityResult:number|undefined
 
@@ -19,12 +22,18 @@ export class ProbabilityPage {
     }
 
 
-    /* UI events */
+/* UI events */
+
     public calculateProbability() {
         this.error = ""
         this.probabilityResult = undefined
 
-        this.probabilityProvider.calculateProbability(this.pA, this.pB).subscribe(
+        if ((this.pType||"") == "") {
+            this.error = "Please, select a calculation type"
+            return
+        }
+
+        this.probabilityProvider.calculateProbability(this.pA, this.pB, this.pType).subscribe(
             result => {
                 if (result.isSuccess)
                     this.probabilityResult = result.probability

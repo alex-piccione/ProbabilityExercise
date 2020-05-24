@@ -21,10 +21,11 @@ namespace Probability.Web.ApiControllers
         [HttpGet("")]        
         public ActionResult Calculate([FromQuery]CalculateProbabilityApiRequest request)
         {
-            var calculationRequest= new CalculateProbabilityRequest
+            var calculationRequest = new CalculateProbabilityRequest
             {
                 ProbabilityOfA = request.ProbabilityOfA,
-                ProbabilityOfB = request.ProbabilityOfB
+                ProbabilityOfB = request.ProbabilityOfB,
+                CalculationType = request.CalculationType
             };
 
             try

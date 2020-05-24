@@ -12,9 +12,9 @@ export class ProbabilityProvider extends BaseProvider {
         super()
     }
 
-    public calculateProbability(probabilityOfA: number, probabilityOfB: number): Observable<ProbabilityResult> {
+    public calculateProbability(probabilityOfA:number, probabilityOfB:number, calculationType:string): Observable<ProbabilityResult> {
 
-        const url = `${this.apiUrl}/probability?pA=${probabilityOfA}&pB=${probabilityOfB}`
+        const url = `${this.apiUrl}/probability?pA=${probabilityOfA}&pB=${probabilityOfB}&type=${calculationType}`
 
         return this.http.get(url).pipe(
             map(result => this.parseProbability(result)),

@@ -6,6 +6,6 @@ namespace Probability.Core.Models
     {        
         public decimal ProbabilityOfA { get; set; }
         public decimal ProbabilityOfB { get; set; }
-        public string ProbabilityType { get; set; }
+        public string CalculationType { get; set; }
     }
 }

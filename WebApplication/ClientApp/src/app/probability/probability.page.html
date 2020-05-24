@@ -7,17 +7,25 @@
     <div *ngIf="error!=''" class="alert alert-danger">{{error}}</div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label>Probability of A</label>
             <br />
             <input type="range" min="0" max="1.1" step="0.01" [(ngModel)]="pA" class="slider-handle min-slider-handle round" />
             <span class="range-value"> {{pA}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label>Probability of B</label>
             <br />
             <input type="range" min="0" max="1" step="0.01" [(ngModel)]="pB" class="" />
             <span class="range-value"> {{pB}}</span>
+        </div>
+        <div class="col-md-4">
+            <label>Calculation Type</label>
+            <br />
+            <span *ngFor="let name of calculationTypes" class="calculation-type badge badge-primary" [class.off]="pType != name"
+                  (click)="pType = name; error = ''">
+                {{name}}
+            </span>
         </div>
     </div>
     <div class="row">

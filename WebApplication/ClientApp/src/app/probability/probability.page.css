@@ -2,10 +2,21 @@
     margin-bottom:2em;
 }
 
-.range-value {
+input[type="range"] {
     color: #666;
     vertical-align: top;
 }
+
+.calculation-type {
+    font-size:80%;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+    .calculation-type.off {
+        background: rgba(0,0,0,0.2) !important;
+        color: #333;
+    }
 
 
 .result {
