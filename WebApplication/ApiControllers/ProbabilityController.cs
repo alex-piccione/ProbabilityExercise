@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Probability.Core;
+using Probability.Core.Contracts;
 using Probability.Core.Exceptions;
 using Probability.Core.Models;
 using Probability.Web.ApiModels;
@@ -12,9 +12,9 @@ namespace Probability.Web.ApiControllers
     [ApiController, Route("api/probability")]
     public class ProbabilityController : ControllerBase
     {
-        IProbabilityCalculator probabilityCalculator;
+        IProbabilityCalculatorSupervisor probabilityCalculator;
 
-        public ProbabilityController(IProbabilityCalculator probabilityCalculator) {
+        public ProbabilityController(IProbabilityCalculatorSupervisor probabilityCalculator) {
             this.probabilityCalculator = probabilityCalculator;
         }
 

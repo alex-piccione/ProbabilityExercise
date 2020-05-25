@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 
 using Probability.Core;
 using Probability.Core.Calculators;
+using Probability.Core.Contracts;
 
 namespace WebApplication
 {
@@ -30,8 +31,7 @@ namespace WebApplication
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddSingleton<IProbabilityCalculator, ProbabilityCalculator>();
-
+            services.AddSingleton<IProbabilityCalculatorSupervisor, ProbabilityCalculatorSupervisor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

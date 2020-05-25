@@ -5,37 +5,28 @@ open NUnit.Framework
 open FsUnit
 open Probability.Core.Calculators
 open Probability.Core.Models
-open Probability.Core.Exceptions
 
-let createRequest probA probB probType= 
-    let request = CalculateProbabilityRequest()
-    request.ProbabilityOfA <- probA
-    request.ProbabilityOfB <- probB
-    request.ProbabilityType <- probType
-    request
+let createInput probA probB= 
+    let input = CalculateProbabilityInput()
+    input.ProbabilityOfA <- probA
+    input.ProbabilityOfB <- probB
+    input
 
 
-[<TestCase(-0.1, 0)>]
-[<TestCase( 1.1, 0)>]
-[<TestCase(0, -0.1)>]
-[<TestCase(0,  1.1)>]
-let ``CalculateProbability [when] probability are out of ranget [should] raise a specific Exception`` (probA:decimal, probB:decimal) =
-    let request = createRequest probA probB ProbabilityType.CombinedWith
-    (fun () -> ProbabilityCalculator().CalculateProbability(request) |> ignore)
-    |> should throw typeof<InvalidCalculateProbabilityRequest>
+[<Category("CombinedWith")>]
+[<TestCase(0.5, 0.5, 0.25)>]
+[<TestCase(0.1, 0.3, 0.03)>]
+let ``CalculateProbability [when] type is CombinedWith [should] calculate the correct value`` (probA:decimal, probB:decimal, expectedResult:decimal) =
+    let input = createInput probA probB
+    let result = CombinedWithProbabilityCalculator().Calculate(input)
+    result |> should equal expectedResult
 
 
-[<TestCase("")>]
-[<TestCase(null)>]
-let ``CalculateProbability [when] probability type is unknown [should] raise a specific Exception`` (probType:string) =
-    let request = createRequest 0m 0m probType
-    (fun () -> ProbabilityCalculator().CalculateProbability(request) |> ignore)
-    |> should throw typeof<InvalidCalculateProbabilityRequest>
-
-
-[<TestCase(0.5, 0.5, 1.0)>]
-let ``CalculateProbability [should] calculate the correct value`` (probA:decimal, probB:decimal, expectedResult:decimal) =
-    let request = createRequest probA probB ProbabilityType.CombinedWith
-    let result = ProbabilityCalculator().CalculateProbability(request)
+[<Category("Either")>]
+[<TestCase(0.5, 0.5, 0.75)>]
+[<TestCase(0.1, 0.3, 0.75)>]
+let ``CalculateProbability [when] type is Either [should] calculate the correct value`` (probA:decimal, probB:decimal, expectedResult:decimal) =
+    let input = createInput probA probB
+    let result = EitherProbabilityCalculator().Calculate(input)
     result |> should equal expectedResult
 

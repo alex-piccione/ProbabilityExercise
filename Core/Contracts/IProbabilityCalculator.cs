@@ -4,6 +4,6 @@ namespace Probability.Core
 {
     public interface IProbabilityCalculator
     {
-        decimal CalculateProbability(CalculateProbabilityRequest request);
+        decimal Calculate(CalculateProbabilityInput input);
     }
 }

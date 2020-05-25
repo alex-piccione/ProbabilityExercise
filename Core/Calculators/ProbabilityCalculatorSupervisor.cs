@@ -1,21 +1,31 @@
 ﻿using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
+
 using Probability.Core.Exceptions;
 using Probability.Core.Models;
+using Probability.Core.Contracts;
 
 namespace Probability.Core.Calculators
 {
-    public class ProbabilityCalculator : IProbabilityCalculator
+    public class ProbabilityCalculatorSupervisor : IProbabilityCalculatorSupervisor
     {
-        string[] validProbabilityTypes = { ProbabilityType.CombinedWith, ProbabilityType.Either };
+        ICalculatorFactory calculatorFactory;
+
+        public ProbabilityCalculatorSupervisor(ICalculatorFactory calculatorFactory) {
+            this.calculatorFactory = calculatorFactory;
+        }
+
+        string[] validProbabilityTypes = { CalculationType.CombinedWith, CalculationType.Either };
 
         public decimal CalculateProbability(CalculateProbabilityRequest request)
         {
             ValidateRequest(request);
 
-            return request.ProbabilityOfA + request.ProbabilityOfB;
+            var input = CalculateProbabilityInput.FromCalculateProbabilityRequest(request);
+            var calculatedProbability = calculatorFactory.GetCalculator(request.CalculationType).Calculate(input);
+
+            return calculatedProbability;
         }
 
         private void ValidateRequest(CalculateProbabilityRequest request)

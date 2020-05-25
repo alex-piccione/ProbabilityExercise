@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Main\utils.fs" />
+    <Compile Include="Main\CalculatorFactory.fs" />
+    <Compile Include="Main\CalculateProbabilityInput.test.fs" />
+    <Compile Include="Main\ProbabilityCalculatorSupervisor.test.fs" />
     <Compile Include="Main\ProbabilityCalculator.test.fs" />
   </ItemGroup>
 

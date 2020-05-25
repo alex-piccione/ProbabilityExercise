@@ -1,6 +1,6 @@
 ﻿namespace Probability.Core.Models
 {
-    public class ProbabilityType {
+    public class CalculationType {
         public const string CombinedWith = "CombinedWith";
         public const string Either = "Either";
     }
