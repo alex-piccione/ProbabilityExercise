@@ -11,9 +11,11 @@ namespace Probability.Core.Calculators
     public class ProbabilityCalculatorSupervisor : IProbabilityCalculatorSupervisor
     {
         ICalculatorFactory calculatorFactory;
+        ICalculationStorer calculationsStorer;
 
-        public ProbabilityCalculatorSupervisor(ICalculatorFactory calculatorFactory) {
+        public ProbabilityCalculatorSupervisor(ICalculatorFactory calculatorFactory, ICalculationStorer calculationsStorer) {
             this.calculatorFactory = calculatorFactory;
+            this.calculationsStorer = calculationsStorer;
         }
 
         string[] validProbabilityTypes = { CalculationType.CombinedWith, CalculationType.Either };
@@ -25,8 +27,12 @@ namespace Probability.Core.Calculators
             var input = CalculateProbabilityInput.FromCalculateProbabilityRequest(request);
             var calculatedProbability = calculatorFactory.GetCalculator(request.CalculationType).Calculate(input);
 
+            var executedCalculation = CreateExecutedCalculation(input, request.CalculationType, calculatedProbability);
+            calculationsStorer.StoreCalculation(executedCalculation);
+
             return calculatedProbability;
         }
+
 
         private void ValidateRequest(CalculateProbabilityRequest request)
         {
@@ -44,5 +50,14 @@ namespace Probability.Core.Calculators
             if (errors.Count > 0)
                 throw new InvalidCalculateProbabilityRequest(errors.ToArray());
         }
+
+        private ExecutedCalculation CreateExecutedCalculation(CalculateProbabilityInput input, string calculationType, decimal calculatedProbability)
+        => new ExecutedCalculation {
+            When = DateTime.UtcNow,
+            Input = input,
+            CalculationType = calculationType,
+            Result = calculatedProbability
+        };
+        
     }
 }

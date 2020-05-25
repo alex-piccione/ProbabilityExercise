@@ -1,4 +1,4 @@
-﻿module Test_utils
+﻿module TestUtils
 
 open Probability.Core.Models
 

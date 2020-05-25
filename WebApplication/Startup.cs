@@ -32,6 +32,7 @@ namespace WebApplication
             });
 
             services.AddSingleton<IProbabilityCalculatorSupervisor, ProbabilityCalculatorSupervisor>();
+            services.AddSingleton<ICalculatorFactory, CalculatorFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

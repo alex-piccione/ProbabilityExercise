@@ -7,7 +7,7 @@ open Probability.Core.Models
 
 [<Test>]
 let FromCalculateProbabilityRequest() =
-    let request = Test_utils.createRequest 1m 2m "type"
+    let request = TestUtils.createRequest 1m 2m "type"
     let input = CalculateProbabilityInput.FromCalculateProbabilityRequest(request)
     input |>  should not' (be Null)
     input.ProbabilityOfA |> should equal 1m

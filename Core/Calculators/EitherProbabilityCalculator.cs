@@ -1,4 +1,5 @@
-﻿using Probability.Core.Models;
+﻿using Probability.Core.Contracts;
+using Probability.Core.Models;
 
 namespace Probability.Core.Calculators
 {

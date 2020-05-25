@@ -1,6 +1,6 @@
 ﻿using Probability.Core.Models;
 
-namespace Probability.Core
+namespace Probability.Core.Contracts
 {
     public interface IProbabilityCalculator
     {
