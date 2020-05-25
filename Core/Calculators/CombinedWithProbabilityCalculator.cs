@@ -5,8 +5,6 @@ namespace Probability.Core.Calculators
     public class CombinedWithProbabilityCalculator : IProbabilityCalculator
     {
         public decimal Calculate(CalculateProbabilityInput input)
-        {
-            throw new System.NotImplementedException();
-        }
+        => input.ProbabilityOfA * input.ProbabilityOfB;
     }
 }

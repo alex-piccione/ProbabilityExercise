@@ -1,13 +1,14 @@
-﻿using System;
-using Probability.Core.Models;
+﻿using Probability.Core.Models;
 
 namespace Probability.Core.Calculators
 {
+    /// <summary>
+    /// Apply the formula pA + ((1-pA)*pB)
+    /// </summary>
     public class EitherProbabilityCalculator : IProbabilityCalculator
     {
         public decimal Calculate(CalculateProbabilityInput input)
-        {
-            throw new NotImplementedException();
-        }
+        => input.ProbabilityOfA + (input.ProbabilityOfB - (input.ProbabilityOfA * input.ProbabilityOfB));
+
     }
 }
