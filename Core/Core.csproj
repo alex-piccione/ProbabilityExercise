@@ -5,4 +5,9 @@
     <RootNamespace>Probability.Core</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Jil" Version="2.17.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+  </ItemGroup>
+
 </Project>

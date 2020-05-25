@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Probability.Core;
+using Probability.Core.Analysis;
 using Probability.Core.Calculators;
 using Probability.Core.Contracts;
 
@@ -33,6 +34,7 @@ namespace WebApplication
 
             services.AddSingleton<IProbabilityCalculatorSupervisor, ProbabilityCalculatorSupervisor>();
             services.AddSingleton<ICalculatorFactory, CalculatorFactory>();
+            services.AddSingleton<ICalculationStorer>(new LogFileCalculationsStorer("C:/logs/probability_.txt"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
