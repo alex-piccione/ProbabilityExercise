@@ -27,11 +27,13 @@ namespace Probability.Core.Analysis
                 .WriteTo.File(new JsonFormatter(), logDirectory, Serilog.Events.LogEventLevel.Information,
                     fileSizeLimit, null, buffered: false, shared: false, flushInterval, RollingInterval.Day)
                 .CreateLogger();
+
+            Jil.JSON.SetDefaultOptions(Jil.Options.ISO8601);
         }
                 
 
         public void StoreCalculation(ExecutedCalculation calculation)
-        {
+        {            
             logger.Information(Jil.JSON.Serialize(calculation));
         }
     }
